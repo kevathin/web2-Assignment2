@@ -7,11 +7,15 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: rgb(205, 205, 205);
 }
 
 #mainContent{
     margin-left: 10px;
     margin-right: 10px;
+    /* learned this in W3Schools of how to do gradient color*/
+    /* linear-gradient (direction, color1, color2, etc)*/
+    background-image: linear-gradient(to bottom,rgb(112, 112, 255),  rgb(205, 205, 205));
 }
 
 .hidePage {
