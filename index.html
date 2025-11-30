@@ -6,28 +6,87 @@
     <title>web2assignment2</title>
     <script src="js/main.js"></script>
     <link rel="stylesheet" href="styling/main.css">
+    <link rel="stylesheet" href="styling/headerAndFooter.css">
+    <link rel="stylesheet" href="styling/homePage.css">
 </head>
 <body>
+    
     <header>
+
+        <div id="pageIcon">
+            <img src="images/headerAndFooter/mru-icon.png">
+            <p>MRU Fashion</p>
+        </div>
+
+        <div id="searchBarBox">
+            <input id="searchBar" placeholder="Search MRU Fashion" type="text">
+            <button id="searchButton">
+                <img src="images/headerAndFooter/searchIcon.png">
+            </button>
+        </div>
+
+        <div id="shoppingCartBox">
+            <img src="images/headerAndFooter/cartIcon.png">
+            <p>View Cart</p>
+        </div>
+
+        <div id="aboutUsBox">
+            <img src="images/headerAndFooter/searchIcon.png">
+            <p>About Us</p>
+        </div>
 
     </header>
 
-    <section id="homeView">
-        <div id="mensSuper"></div>
-        <div id="womensSuper"></div>
+    <section id="mainContent">
+
+        <section id="homeView">
+
+            <div id="menSuper">
+                <img src="images/homeView/manSuper.jpg" class="superImg">
+                <h2 class="superText">Latest Mans Fashion</h2>
+            </div>
+
+            <div id="womenSuper">
+                <img src="images/homeView/womenSuper.jpg" class="superImg">
+                <h2 class="superText">Latest Women's Fashion</h2>
+            </div>
+
+        </section>
+
+        <section id="browseView">
+
+            <div id="topBar">
+
+            </div>
+            <div id="sideBarFilter">
+
+            </div>
+            <div id="browseItemContent">
+
+            </div>
+
+        </section>
+
+        <section id="singleProductView">
+
+        </section>
+
+        <section id="shoppingCartView">
+
+        </section>
+
+        <section id="aboutUsView">
+
+        </section>
+        
     </section>
+    
 
-    <section id="browseView">
-        <div id="topBar">
+    <footer>
 
-        </div>
-        <div id="sideBarFilter">
+    </footer>
 
-        </div>
-        <div id="browseItemContent">
-
-        </div>
-    </section>
+</body>
 
     <template id="itemBoxTemplate">
 
@@ -42,20 +101,4 @@
         
     </template>
 
-    <section id="singleProductView">
-
-    </section>
-
-    <section id="shoppingCartView">
-
-    </section>
-
-    <section id="aboutUsView">
-
-    </section>
-
-    <footer>
-
-    </footer>
-</body>
 </html>

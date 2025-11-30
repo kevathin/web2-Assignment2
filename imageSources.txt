@@ -1,0 +1,15 @@
+
+aboutUsIcon, searchIcon, cartIcon
+    - made by mensSuper
+
+mru-icon
+    - screenShot from mru home page
+    - added personal art to screenShot
+
+manSuper
+    - https://pixabay.com/photos/man-fashion-model-pose-portrait-9182458/
+    - (according to the site) free to use
+
+womenSuper
+    - https://pixabay.com/photos/woman-model-portrait-pose-style-6496881/
+    - (according to the site) free to use
