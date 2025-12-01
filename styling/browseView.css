@@ -1,0 +1,85 @@
+/* ----------------general styling ------------*/
+
+#browseViewMainBody{
+    display: flex;
+}
+
+#browseView{
+    display: flex;
+    flex-direction: column;
+}
+
+#browseViewMainBody, #sideBarFilter, #browseView{
+    height: 100% ;
+}
+
+/*---------------------------------------top bar styling --------------*/
+
+#topBar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(255, 165, 21);
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#topBarSortByBox{
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    height: 25px;
+}
+
+#sortByFilterBox{
+    border: 0px; 
+    height: 25px;
+}
+
+/*-----------------------------------side bar style---------*/
+
+#genderFilterBox, #categoryFilterBox, #priceFilterBox, #sizeFilterBox{
+    background-color: white;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#sideBarFilter{
+    background-color: rgb(255, 165, 21);
+    padding-left: 5px;
+    padding-right: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 225px;
+    justify-content: center;
+}
+
+#genderFilterBox{
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+#genderOptionContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    row-gap: 5px;
+    align-items: center;
+}
+
+#genderOptionContainer input{
+    width: 20px;
+    height: 20px;
+}
+
+#sizeFilterBox{
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding-bottom: 30px;
+}

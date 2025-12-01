@@ -18,7 +18,3 @@ body{
     background-image: linear-gradient(to bottom,rgb(112, 112, 255),  rgb(205, 205, 205));
 }
 
-.hidePage {
-    display: none;
-}
-

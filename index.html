@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>web2assignment2</title>
     <script src="js/main.js"></script>
-    <link rel="stylesheet" href="styling/main.css">
     <link rel="stylesheet" href="styling/headerAndFooter.css">
     <link rel="stylesheet" href="styling/homePage.css">
+    <link rel="stylesheet" href="styling/browseView.css">
+    <link rel="stylesheet" href="styling/main.css">
 </head>
 <body>
     
@@ -57,13 +58,79 @@
 
             <div id="topBar">
 
+                <p id="resultNum">The search result is: blank products</p>
+                <div id="topBarSortByBox">
+                    <p>Sort By:</p>
+                    <select id="sortByFilterBox">
+                        <option value="N/A" selected>No Order</option>
+                        <option value="LtoH">Least Expensive</option>
+                        <option value="HtoL">Most Expensive</option>
+                    </select>
+                </div>
+                
             </div>
-            <div id="sideBarFilter">
+            <div id="browseViewMainBody">
+                <div id="sideBarFilter">
+                    
+                    <div id="genderFilterBox">
 
-            </div>
-            <div id="browseItemContent">
+                        <h2>Gender</h2>
+                        <div id="genderOptionContainer">
+                            <label for="N/AGenderInput">No Preference</label>
+                            <input type="radio" value="N/A" name="selGender" id="N/AGenderInput" checked>
+                            <label for="menGenderInput">Male</label>
+                            <input type="radio" value="mens" name="selGender" id="menGenderInput">
+                            <label for="womenGenderInput">Female</label>
+                            <input type="radio" value="womens" name="selGender" id="womenGenderInput">
+                        </div>
 
+                    </div>
+                    <div id="categoryFilterBox">
+
+                        <h2>Category</h2>
+                        <select id="categorySelectBox">
+                            <option value="N/A" selected>No Preference</option>
+                            <option value="Sweaters">Sweaters</option>
+                            <option value="Dresses">Dresses</option>
+                            <option value="Outerwear">Outerwear</option>
+                            <option value="Tops">Tops</option>
+                            <option value="Bottoms">Bottoms</option>
+                            <option value="Jumpsuits">Jumpsuits</option>
+                            <option value="Accessories">Accessories</option>
+                            <option value="Shoes">Shoes</option>
+                            <option value="Loungewear">Loungewear</option>
+                            <option value="Intimates">Intimates</option>
+                            <option value="Swimwear">Swimwear</option>
+                        </select>
+
+                    </div>
+                    <div id="priceFilterBox">
+
+                        <h2>Price Range</h2>
+
+                    </div>
+                    <div id="sizeFilterBox">
+
+                        <h2>General Size</h2>
+                        <div>
+
+                            <button class="sizeButtons" id="XS">XS</button>
+                            <button class="sizeButtons" id="S">S</button>
+                            <button class="sizeButtons" id="M">M</button>
+                            <button class="sizeButtons" id="L">L</button>
+                            <button class="sizeButtons" id="XL">XL</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div id="browseItemContent">
+
+                </div>
             </div>
+            
 
         </section>
 
