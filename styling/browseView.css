@@ -2,6 +2,7 @@
 
 #browseViewMainBody{
     display: flex;
+    max-height: 100%;
 }
 
 #browseView{
@@ -22,6 +23,7 @@
     background-color: rgb(255, 165, 21);
     padding-left: 10px;
     padding-right: 10px;
+    height: 10%;
 }
 
 #topBarSortByBox{
@@ -37,6 +39,16 @@
 #sortByFilterBox{
     border: 0px; 
     height: 25px;
+}
+
+#resultNum{
+    display: flex;
+    background-color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    height: 25px;
+    align-items: center;
 }
 
 /*-----------------------------------side bar style---------*/
@@ -58,6 +70,7 @@
     align-items: center;
     width: 225px;
     justify-content: center;
+    height: 90%;
 }
 
 #genderFilterBox{
@@ -82,4 +95,39 @@
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
     padding-bottom: 30px;
+}
+
+.valueRangeBox{
+    display: flex;
+    height: 30px;
+    align-items: center;
+}
+
+.valueRangeBox input{
+    width: 50px;
+}
+
+/*-------------------------------------browse content style ------------------*/
+
+#browseContentBox{
+    display: flex;
+}
+
+#browseItemContent{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    max-height: 90%;
+    overflow-y: scroll;
+    width: 100%;
+    justify-items: center;
+}
+
+.itemBox{
+    width: 200px;
+    background-color: rgb(255, 165, 21);
+    padding: 5px;
 }

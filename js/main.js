@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
     // all major selectors 
     const searchBar = document.querySelector("#searchBar");
-
+    const productTemplate = document.querySelector("#itemBoxTemplate");
+    const browseContent = document.querySelector("#browseItemContent");
     // the shopping cart is only going to contain the id of the items
     let shoppingCart = [];
 
@@ -18,7 +19,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     let filterList = {
         "name":"N/A",
         "gender":"N/A",
-        "lowPrice":0,
+        "lowPrice":"N/A",
         "highPrice":"N/A",
         "category":"N/A",
         "sizeXS":"N/A",
@@ -29,6 +30,8 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         "sizeXL":"N/A",
         "sortBy":"N/A"
     };
+
+    let activePage ="homeView";
 
     // ------------------------------------------ fetch + setup manager----------------
 
@@ -65,7 +68,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
      * instead of html.
      */
     function initialPageHidden(){
-        document.querySelector("#homeView").style.display = "none";
+        document.querySelector("#browseView").style.display = "none";
         document.querySelector("#singleProductView").style.display = "none";
         document.querySelector("#shoppingCartView").style.display = "none";
         document.querySelector("#aboutUsView").style.display = "none";
@@ -73,6 +76,11 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
     // ------------------------------------------setup functions ------------
     function headerSetup(){
+
+        // loads the home page
+        document.querySelector("#pageIcon").addEventListener("click", (e)=>{
+            loadHomeView();
+        });
 
         //Load to browse view if user presses enter in search bar
         document.querySelector("#searchBarBox").addEventListener("keydown", (e)=>{
@@ -162,9 +170,113 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
     }
 
+    function loadSingleProductView(productID){
+        
+    }
+
+    /**
+     * this goes through all the filter information that the user has applied and then 
+     * filters the data using the filter information.
+     * 
+     * @returns data post filter
+     */
+    function getFilteredData(){
+        let filteredData = data;
+        //console.log(filteredData);
+        if(filterList.name != "N/A"){
+            filteredData = filteredData.filter(i => i.name.toLowerCase().startsWith(filterList.name.toLowerCase()));
+        }
+        //console.log(filteredData);
+        if(filterList.gender != "N/A"){
+            filteredData = filteredData.filter(i => i.gender == filterList.gender);
+        }
+        //console.log(filteredData);
+        if(filterList.lowPrice != "N/A"){
+            filteredData = filteredData.filter(i => i.price >= filterList.lowPrice);
+        }
+        //console.log(filteredData);
+        if(filterList.highPrice != "N/A"){
+            filteredData = filteredData.filter(i => i.price <= filterList.highPrice);
+        }
+        //console.log(filteredData);
+        if(filterList.category != "N/A"){
+            filteredData = filteredData.filter(i => i.category == filterList.category);
+        }
+        //console.log(filteredData);
+        if(filterList.sizeXS != "N/A"){
+            filteredData = filteredData.filter(i => i.sizes.includes("XS"));
+        }
+        //console.log(filteredData);
+        if(filterList.sizeS != "N/A"){
+            filteredData = filteredData.filter(i => i.sizes.includes("S"));
+        }
+        console.log(filteredData);
+        if(filterList.sizeM != "N/A"){
+            filteredData = filteredData.filter(i => i.sizes.includes("M"));
+        }
+        //console.log(filteredData);
+        if(filterList.sizeL != "N/A"){
+            filteredData = filteredData.filter(i => i.sizes.includes("L"));
+        }
+        //console.log(filteredData);
+        if(filterList.sizeXL != "N/A"){
+            filteredData = filteredData.filter(i => i.sizes.includes("XL"));
+        }
+        //console.log(filteredData);
+        if(filterList.sortBy != "N/A"){
+            filteredData = filteredData.filter(i => i);
+        }
+        //console.log(filteredData);
+        return filteredData;
+    }
+
+    /**
+     * when the user goes into the browse view, all filter buttons will be updated 
+     * to the current filters applied.
+     */
+    function toggleFilterButtons(){
+
+    }
+
     // loads the browse view with all filters that the user wanted
     function loadBrowseView(){
+        togglePageView("browseView", activePage);
+        activePage = "browseView";
+        let filteredData = getFilteredData();
+        toggleFilterButtons();
+        
+        browseContent.innerHTML = "";
+        //console.log(filteredData);
+        //console.log(filterList);
+        if(filteredData){
+            for(product of filteredData){
+                let productElementClone = productTemplate.content.cloneNode(true);
+                let productElement = productElementClone.querySelector(".itemBox");
+                
+                productElement.setAttribute("value", product.id);
+                productElement.querySelector("click", (e)=>{
+                    loadSingleProductView(e.target.value);
+                });
 
+                let img = productElement.querySelector("img");
+                img.setAttribute("src","images/products/"+product.category+".png");
+                img.setAttribute("alt", product.name + " image");
+                img.setAttribute("title", product.name);
+
+                let sizeBox = productElement.querySelector(".itemSizeAvailableBox");
+                productElement.querySelector(".itemTitle").textContent = product.name;
+                productElement.querySelector(".itemCost").textContent = product.price;
+
+                browseContent.appendChild(productElement);
+            }
+        }
+        
+    }
+
+    // loads home view
+    function loadHomeView(){
+        togglePageView("homeView", activePage);
+        activePage = "homeView"
     }
 
     // simply just resets the filter list

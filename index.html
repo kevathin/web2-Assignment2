@@ -107,6 +107,22 @@
                     <div id="priceFilterBox">
 
                         <h2>Price Range</h2>
+                        <div>
+                            <label for="minValueInput">Minimum Price:</label>
+                            <div class="valueRangeBox">
+                                <p>$</p>
+                                <input type="text" id="minValueInput" pattern="[0-9]{3}" placeholder="0">
+                            </div>
+                            
+                        </div>
+                        <div>
+                            <label for="maxValueInput">Maximum Price:</label>
+                            <div class="valueRangeBox">
+                                <p>$</p>
+                                <input type="text" id="maxValueInput" pattern="[0-9]{4}" placeholder="9999">
+                            </div>
+                            
+                        </div>
 
                     </div>
                     <div id="sizeFilterBox">
@@ -125,10 +141,12 @@
                     </div>
 
                 </div>
-
+                
                 <div id="browseItemContent">
 
                 </div>
+                
+                
             </div>
             
 
@@ -158,8 +176,8 @@
 
     <template id="itemBoxTemplate">
 
-        <div class="itemBox" id="itemID">
-            <img src="(itemImageLink)" alt="(item title) image" title="(item title)" value="(itemID)">
+        <div class="itemBox">
+            <img src="(itemImageLink)" alt="(item title) image" title="(item title)" class="productImageMini">
             <div class="itemTextBox">
                 <div class="itemSizeAvailableBox"></div>
                 <h2 class="itemTitle"></h2>
