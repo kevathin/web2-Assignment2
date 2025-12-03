@@ -13,3 +13,19 @@ manSuper
 womenSuper
     - https://pixabay.com/photos/woman-model-portrait-pose-style-6496881/
     - (according to the site) free to use
+
+sweater
+    - https://pixabay.com/vectors/sweater-jumper-pullover-jersey-150533/
+
+dresses
+    - https://pixabay.com/photos/clothes-ibiza-boutique-femininity-4423661/
+
+outerware
+    - https://pixabay.com/vectors/clothing-coat-fashion-girl-wear-1298840/
+
+tops
+    - https://pixabay.com/illustrations/t-shirt-shirt-clothes-red-mockup-7973394/
+
+bottoms
+    - https://pixabay.com/photos/trousers-clothing-mens-pants-2685231/
+

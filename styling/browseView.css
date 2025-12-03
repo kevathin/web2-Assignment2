@@ -2,7 +2,7 @@
 
 #browseViewMainBody{
     display: flex;
-    max-height: 100%;
+    max-height: 90%;
 }
 
 #browseView{
@@ -24,6 +24,18 @@
     padding-left: 10px;
     padding-right: 10px;
     height: 10%;
+}
+
+#clearFilterButton{
+    background-color: white;
+    border: 1px solid black;
+    height: 25px;
+    border-radius: 10px;
+}
+
+#clearFilterButton:hover{
+    cursor: pointer;
+    background-color: rgb(231, 231, 231);
 }
 
 #topBarSortByBox{
@@ -70,7 +82,8 @@
     align-items: center;
     width: 225px;
     justify-content: center;
-    height: 90%;
+    height: 100%;
+    max-height: 100%;
 }
 
 #genderFilterBox{
@@ -107,6 +120,10 @@
     width: 50px;
 }
 
+.toggleSizeTrue{
+    background-color: rgb(141, 255, 89);
+}
+
 /*-------------------------------------browse content style ------------------*/
 
 #browseContentBox{
@@ -120,7 +137,7 @@
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 10px;
-    max-height: 90%;
+    max-height: 100%;
     overflow-y: scroll;
     width: 100%;
     justify-items: center;
@@ -131,3 +148,14 @@
     background-color: rgb(255, 165, 21);
     padding: 5px;
 }
+
+.itemBox:hover{
+    cursor: pointer;
+    border: 1px solid white;
+}
+
+.itemBox img{
+    height: 200px;
+    width: auto;
+}
+

@@ -59,6 +59,9 @@
             <div id="topBar">
 
                 <p id="resultNum">The search result is: blank products</p>
+
+                <button id="clearFilterButton">Clear All Filters</button>
+                
                 <div id="topBarSortByBox">
                     <p>Sort By:</p>
                     <select id="sortByFilterBox">
@@ -78,10 +81,10 @@
                         <div id="genderOptionContainer">
                             <label for="N/AGenderInput">No Preference</label>
                             <input type="radio" value="N/A" name="selGender" id="N/AGenderInput" checked>
-                            <label for="menGenderInput">Male</label>
-                            <input type="radio" value="mens" name="selGender" id="menGenderInput">
-                            <label for="womenGenderInput">Female</label>
-                            <input type="radio" value="womens" name="selGender" id="womenGenderInput">
+                            <label for="mensGenderInput">Male</label>
+                            <input type="radio" value="mens" name="selGender" id="mensGenderInput">
+                            <label for="womensGenderInput">Female</label>
+                            <input type="radio" value="womens" name="selGender" id="womensGenderInput">
                         </div>
 
                     </div>
@@ -119,7 +122,7 @@
                             <label for="maxValueInput">Maximum Price:</label>
                             <div class="valueRangeBox">
                                 <p>$</p>
-                                <input type="text" id="maxValueInput" pattern="[0-9]{4}" placeholder="9999">
+                                <input type="text" id="maxValueInput" pattern="[0-9]{3}" placeholder="9999">
                             </div>
                             
                         </div>

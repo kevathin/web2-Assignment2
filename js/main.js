@@ -46,7 +46,8 @@ document.addEventListener("DOMContentLoaded", (e)=>{
             data = info;
             pageManager();
         }).catch(err =>{
-            alert("fetch failure");
+            alert("fetch failure" + err);
+            console.log(err);
         });
     
     /**
@@ -54,6 +55,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
      * I am using a manager that just calls the different categories of pages.
      */
     function pageManager(){
+        loadLocalStorageInfo();
         initialPageHidden();
         headerSetup();
         homeViewSetup();
@@ -72,6 +74,21 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         document.querySelector("#singleProductView").style.display = "none";
         document.querySelector("#shoppingCartView").style.display = "none";
         document.querySelector("#aboutUsView").style.display = "none";
+    }
+
+    function loadLocalStorageInfo(){
+        try {
+            let tempFilterInfo = localStorage.getItem("filterList");
+            tempFilterInfo = JSON.parse(tempFilterInfo);
+            if(tempFilterInfo){
+                console.log(tempFilterInfo);
+                filterList = tempFilterInfo;
+            }else{
+                throw new console.error("couldn't get filter information");
+            }
+        } catch (error) {
+            console.log("get local storage info failed: " + error);
+        }
     }
 
     // ------------------------------------------setup functions ------------
@@ -93,8 +110,9 @@ document.addEventListener("DOMContentLoaded", (e)=>{
                 
                 // checks the length (minus whiteSpace) 
                 if(searchInput.replace(/\s+/g, '').length >2){
-                    clearFilterList();
+                    
                     filterList.name = searchInput;
+                    updateFilterToggles("name");
                     loadBrowseView();
                 } else{
                     alert("please input a prompt with more than three regular characters");
@@ -110,8 +128,9 @@ document.addEventListener("DOMContentLoaded", (e)=>{
                 
             // checks the length (minus whiteSpace) 
             if(searchInput.replace(/\s+/g, '').length >2){
-                clearFilterList();
+                
                 filterList.name = searchInput;
+                updateFilterToggles("name");
                 loadBrowseView();
             } else{
                 alert("please input a prompt with more than three regular characters");
@@ -134,22 +153,58 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
         //load browse view with the filter of gender being male
         document.querySelector("#menSuper").addEventListener("click",(e)=>{
-            clearFilterList();
             filterList.gender = "mens";
+            updateFilterToggles("gender");
             loadBrowseView();
         });
 
         //load browse view with the filter of gender being female
         document.querySelector("#womenSuper").addEventListener("click",(e)=>{
-            clearFilterList();
             filterList.gender = "womens";
+            updateFilterToggles("gender");
             loadBrowseView();
         });
 
     }
 
     function browseViewSetup(){
+        document.querySelectorAll("#genderOptionContainer radio").forEach(radio =>{
+            radio.addEventListener("click",(e)=>{
+                
+            });
+        });
 
+        document.querySelector("#categorySelectBox").addEventListener("change", (e)=>{
+            console.log("hello");
+        });
+
+        document.querySelector("#maxValueInput").addEventListener("change", (e)=>{
+            try {
+                let valueInput = document.querySelector("#maxValueInput");
+                let val = parseInt(valueInput.value);
+                filterList.highPrice = val;
+                loadBrowseView();
+                updateFilterToggles("highPrice");
+                updateLocalStorage();
+            } catch (error) {
+                alert("Please type an integer in your max price filter");
+            }
+        });
+
+        document.querySelector("#minValueInput").addEventListener("change", (e)=>{
+            console.log("hello")
+            try {
+                let valueInput = document.querySelector("#minValueInput");
+                let val = parseInt(valueInput.value);
+                filterList.lowPrice = val;
+                loadBrowseView();
+                updateFilterToggles("lowPrice");
+                updateLocalStorage();
+            } catch (error) {
+                alert("Please type an integer in your min price filter");
+                console.log(error);
+            }
+        });
     }
 
     function singleProductViewSetup(){
@@ -168,6 +223,10 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     // Loads the shopping cart menu with items that the user ordered
     function loadShoppingCart(){
 
+    }
+
+    function updateLocalStorage(){
+        localStorage.setItem("filterList", JSON.stringify(filterList));
     }
 
     function loadSingleProductView(productID){
@@ -192,11 +251,11 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         }
         //console.log(filteredData);
         if(filterList.lowPrice != "N/A"){
-            filteredData = filteredData.filter(i => i.price >= filterList.lowPrice);
+            filteredData = filteredData.filter(i => i.price >= parseInt(filterList.lowPrice));
         }
         //console.log(filteredData);
         if(filterList.highPrice != "N/A"){
-            filteredData = filteredData.filter(i => i.price <= filterList.highPrice);
+            filteredData = filteredData.filter(i => i.price <= parseInt(filterList.highPrice));
         }
         //console.log(filteredData);
         if(filterList.category != "N/A"){
@@ -210,7 +269,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         if(filterList.sizeS != "N/A"){
             filteredData = filteredData.filter(i => i.sizes.includes("S"));
         }
-        console.log(filteredData);
+        //console.log(filteredData);
         if(filterList.sizeM != "N/A"){
             filteredData = filteredData.filter(i => i.sizes.includes("M"));
         }
@@ -231,19 +290,40 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     }
 
     /**
-     * when the user goes into the browse view, all filter buttons will be updated 
-     * to the current filters applied.
+     * changes specific filter information when the user
+     * sets a filter.
+     * @param {*} element the filter name
      */
-    function toggleFilterButtons(){
-
-    }
+    function updateFilterToggles(element){
+        if(element == "name"){
+            document.querySelector("#searchBarBox").value = filterList.name;
+        } else if(element == "gender"){
+            document.querySelector("#"+filterList.gender+"GenderInput").checked = true;
+        } else if(element == "lowPrice"){
+            document.querySelector("#minValueInput").value = filterList.lowPrice;
+        } else if(element == "highPrice"){
+            document.querySelector("#maxValueInput").value = filterList.highPrice;
+        } else if(element == "category"){
+            document.querySelector("#categorySelectBox").value = filterList.category;
+        } else if(element == "sortBy"){
+            document.querySelector("#sortByFilterBox").value = filterList.sortBy;
+        } else{
+            // else only leaves the sizes
+            let specificSize = element.replace("size", ""); 
+            let button = document.querySelector("#"+specificSize);
+            if(filterList[specificSize] == "true"){
+                button.classList.add("toggleSizeTrue");
+            } else{
+                button.classList.remove("toggleSizeTrue");
+            }
+        }
+    }  
 
     // loads the browse view with all filters that the user wanted
     function loadBrowseView(){
         togglePageView("browseView", activePage);
         activePage = "browseView";
         let filteredData = getFilteredData();
-        toggleFilterButtons();
         
         browseContent.innerHTML = "";
         //console.log(filteredData);
