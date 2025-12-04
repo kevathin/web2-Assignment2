@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     // ------------------------------------------information variables ------------
     // contains all clothing data
     let data;
-
+    // contains all filter names
+    let filters = ["name","gender","lowPrice","highPrice","category","sizeXS","sizeS","sizeM","sizeL","sizeXL","sortBy"];
     // all major selectors 
     const searchBar = document.querySelector("#searchBar");
     const productTemplate = document.querySelector("#itemBoxTemplate");
@@ -83,6 +84,12 @@ document.addEventListener("DOMContentLoaded", (e)=>{
             if(tempFilterInfo){
                 console.log(tempFilterInfo);
                 filterList = tempFilterInfo;
+                // loops through all of the filters loaded by the local storage and updates the filter buttons.
+                for(filter of filters){
+                    if(filterList[filter] !="N/A"){
+                        updateFilterToggles(filter);
+                    }
+                }
             }else{
                 throw new console.error("couldn't get filter information");
             }
@@ -170,12 +177,18 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     function browseViewSetup(){
         document.querySelectorAll("#genderOptionContainer radio").forEach(radio =>{
             radio.addEventListener("click",(e)=>{
-                
+               filterList.gender = e.target.value;
+               loadBrowseView();
+               updateFilterToggles("gender");
+               updateLocalStorage(); 
             });
         });
 
         document.querySelector("#categorySelectBox").addEventListener("change", (e)=>{
-            console.log("hello");
+            filterList.category = e.target.value;
+            loadBrowseView();
+            updateFilterToggles("category");
+            updateLocalStorage();
         });
 
         document.querySelector("#maxValueInput").addEventListener("change", (e)=>{
@@ -204,6 +217,26 @@ document.addEventListener("DOMContentLoaded", (e)=>{
                 alert("Please type an integer in your min price filter");
                 console.log(error);
             }
+        });
+
+        document.querySelector("#sortByFilterBox").addEventListener("change", (e)=>{
+            filterList.sortBy = e.target.value;
+            updateLocalStorage();
+            loadBrowseView();
+        });
+
+        document.querySelectorAll(".sizeButtons").forEach(button => {
+            button.addEventListener("click", (e)=>{
+                console.log(e.target.value);
+                if(filterList[e.target.value] == "true"){
+                    filterList[e.target.value] = "N/A";
+                }else{
+                    filterList[e.target.value] = "true";
+                }
+                updateFilterToggles(e.target.value);
+                loadBrowseView();
+                updateLocalStorage();
+            });
         });
     }
 
@@ -283,7 +316,39 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         }
         //console.log(filteredData);
         if(filterList.sortBy != "N/A"){
-            filteredData = filteredData.filter(i => i);
+            if(filterList.sortBy == "HtoL"){
+                // selection sort algorithm (highest price to lowest price)
+                for(let i = 0; i < filteredData.length-1; i++){
+                    let currHighest = i;
+                    for(let g = i + 1; g < filteredData.length; g++){
+                        let tempValue = filteredData[g].price;
+                        // if price at filteredData[g] is higher
+                        // than the current highest price, replace 
+                        // the current highest price index with the 
+                        // current index.
+                        if(tempValue > filteredData[currHighest].price){
+                            currHighest = g;
+                        }
+                    }
+                    let tempHold = filteredData[i];
+                    filteredData[i] = filteredData[currHighest];
+                    filteredData[currHighest] = tempHold;
+                }
+            }else{
+                // selection sort algorithm (lowest price to highest price)
+                for(let i = 0; i < filteredData.length-1; i++){
+                    let currLowest = i;
+                    for(let g = i + 1; g < filteredData.length; g++){
+                        let tempValue = filteredData[g].price;
+                        if(tempValue < filteredData[currLowest].price){
+                            currLowest = g;
+                        }
+                    }
+                    let tempHold = filteredData[i];
+                    filteredData[i] = filteredData[currLowest];
+                    filteredData[currLowest] = tempHold;
+                }
+            }
         }
         //console.log(filteredData);
         return filteredData;
@@ -311,9 +376,11 @@ document.addEventListener("DOMContentLoaded", (e)=>{
             // else only leaves the sizes
             let specificSize = element.replace("size", ""); 
             let button = document.querySelector("#"+specificSize);
-            if(filterList[specificSize] == "true"){
+            if(filterList[element] == "true"){
+                console.log("set true");
                 button.classList.add("toggleSizeTrue");
             } else{
+                console.log("set false");
                 button.classList.remove("toggleSizeTrue");
             }
         }
@@ -390,4 +457,3 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     }
 
 });
-
