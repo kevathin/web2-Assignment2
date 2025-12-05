@@ -29,3 +29,20 @@ tops
 bottoms
     - https://pixabay.com/photos/trousers-clothing-mens-pants-2685231/
 
+Swimwear
+    - https://pixabay.com/illustrations/black-bodysuit-swimsuit-swimwear-7328640/
+
+Intimates
+    - https://pixabay.com/illustrations/cute-girl-woman-portrait-fashion-8822623/
+
+Loungewear
+    - https://pixabay.com/photos/woman-paraguay-portrait-cafe-7203799/
+
+shoes 
+    - https://pixabay.com/vectors/tennis-shoes-footwear-fashion-nike-7968714/
+
+jumpsuit
+    - https://pixabay.com/illustrations/design-painter-holding-3063820/
+
+accessories
+    - https://pixabay.com/photos/wrist-watch-clock-necktie-2159351/

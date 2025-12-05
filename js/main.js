@@ -175,12 +175,13 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     }
 
     function browseViewSetup(){
-        document.querySelectorAll("#genderOptionContainer radio").forEach(radio =>{
-            radio.addEventListener("click",(e)=>{
-               filterList.gender = e.target.value;
-               loadBrowseView();
-               updateFilterToggles("gender");
-               updateLocalStorage(); 
+        document.querySelectorAll("#genderOptionContainer input").forEach(radio =>{
+            radio.addEventListener("change",(e)=>{
+                console.log(e.target.value);
+                filterList.gender = e.target.value;
+                loadBrowseView();
+                updateFilterToggles("gender");
+                updateLocalStorage(); 
             });
         });
 
