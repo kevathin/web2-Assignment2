@@ -147,6 +147,10 @@
     width: 200px;
     background-color: rgb(255, 165, 21);
     padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .itemBox:hover{
@@ -159,3 +163,27 @@
     width: auto;
 }
 
+.itemTitle{
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    padding: 5px;
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.itemTextBox{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.itemCost{
+    width: 40%;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}

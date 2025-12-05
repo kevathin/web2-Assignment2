@@ -413,7 +413,11 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
                 let sizeBox = productElement.querySelector(".itemSizeAvailableBox");
                 productElement.querySelector(".itemTitle").textContent = product.name;
-                productElement.querySelector(".itemCost").textContent = product.price;
+                productElement.querySelector(".itemCost").textContent = "$"+product.price;
+
+                productElement.addEventListener("click", (e)=>{
+                    loadSingleProductView(e.target.value);
+                });
 
                 browseContent.appendChild(productElement);
             }
