@@ -31,7 +31,9 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         "sizeXL":"N/A",
         "sortBy":"N/A"
     };
-
+    
+    let viewedItem;
+    let viewedItemAmount;
     let activePage ="homeView";
 
     // ------------------------------------------ fetch + setup manager----------------
@@ -136,12 +138,12 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
         // load to checkout section if user clicks the shopping cart box
         document.querySelector("#shoppingCartBox").addEventListener("click", (e)=>{
-
+            loadShoppingCartView();
         });
 
         // load to about us section if user clicks the about us box
         document.querySelector("#aboutUsBox").addEventListener("click", (e)=>{
-
+            loadAboutUsView();
         });
 
     }
@@ -242,7 +244,20 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
     function singleProductViewSetup(){
         document.querySelector("#addToCartButton").addEventListener("click", (e)=>{
+            if(!viewedItemAmount){
+                alert("please enter the amount you want")
+            }
+            shoppingCart.push(viewedItem,viewedItemAmount);
+        });
 
+        document.querySelector("#addAmountToCart").addEventListener("change",(e)=>{
+            try {
+                let valueInput = document.querySelector("#addAmountToCart");
+                let val = parseInt(valueInput.value);
+                viewedItemAmount = val;
+            } catch (error) {
+                alert("please enter an integer")
+            }
         });
     }
 
@@ -256,8 +271,14 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
     // ------------------------------------------dynamic (active use) functions ------------
     // Loads the shopping cart menu with items that the user ordered
-    function loadShoppingCart(){
+    function loadAboutUsView(){
+        togglePageView("aboutUsView", activePage);
+        activePage = "aboutUsView";
+    }
 
+    function loadShoppingCartView(){
+        togglePageView("shoppingCartView", activePage);
+        activePage = "shoppingCartView";
     }
 
     function updateLocalStorage(){
@@ -273,7 +294,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
                 break;
             }
         }
-        console.log(productData);
+        viewedItem = productData;
         let images = document.querySelectorAll("#productImageBox img");
         for(image of images){
             image.setAttribute("src", "images/products/"+ productData["category"] +".png");
@@ -302,6 +323,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         document.querySelector("#costContainer").textContent = "$"+ productData.price;
 
         togglePageView("singleProductView", activePage);
+        activePage = "singleProductView";
     }
 
     /**
