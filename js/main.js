@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     const searchBar = document.querySelector("#searchBar");
     const productTemplate = document.querySelector("#itemBoxTemplate");
     const browseContent = document.querySelector("#browseItemContent");
-    // the shopping cart is only going to contain the id of the items
+    // the shopping cart is only going to contain the id of the items and the amount
     let shoppingCart = [];
 
     /*  
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     */
     let filterList = {
         "name":"N/A",
-        "gender":"N/A",
+        "gender":"NA",
         "lowPrice":"N/A",
         "highPrice":"N/A",
         "category":"N/A",
@@ -115,15 +115,10 @@ document.addEventListener("DOMContentLoaded", (e)=>{
                 // removes all special characters
                 searchInput = searchInput.replace(/[^a-zA-Z0-9 ]/g, '');
                 
-                // checks the length (minus whiteSpace) 
-                if(searchInput.replace(/\s+/g, '').length >2){
-                    
-                    filterList.name = searchInput;
-                    updateFilterToggles("name");
-                    loadBrowseView();
-                } else{
-                    alert("please input a prompt with more than three regular characters");
-                }
+                filterList.name = searchInput;
+                updateFilterToggles("name");
+                loadBrowseView();
+                
             }
         });
 
@@ -133,15 +128,10 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 
             searchInput = searchInput.replace(/[^a-zA-Z0-9 ]/g, '');
                 
-            // checks the length (minus whiteSpace) 
-            if(searchInput.replace(/\s+/g, '').length >2){
-                
-                filterList.name = searchInput;
-                updateFilterToggles("name");
-                loadBrowseView();
-            } else{
-                alert("please input a prompt with more than three regular characters");
-            }
+            filterList.name = searchInput;
+            updateFilterToggles("name");
+            loadBrowseView();
+            
         });
 
         // load to checkout section if user clicks the shopping cart box
@@ -183,6 +173,15 @@ document.addEventListener("DOMContentLoaded", (e)=>{
                 updateFilterToggles("gender");
                 updateLocalStorage(); 
             });
+        });
+
+        document.querySelector("#clearFilterButton").addEventListener("click",(e)=>{
+            clearFilterList();
+            for(filter of filters){
+                updateFilterToggles(filter);
+            }
+            loadBrowseView();
+            updateLocalStorage();
         });
 
         document.querySelector("#categorySelectBox").addEventListener("change", (e)=>{
@@ -242,7 +241,9 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     }
 
     function singleProductViewSetup(){
+        document.querySelector("#addToCartButton").addEventListener("click", (e)=>{
 
+        });
     }
 
     function shoppingCartViewSetup(){
@@ -264,7 +265,43 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     }
 
     function loadSingleProductView(productID){
+        let filteredData = getFilteredData();
+        let productData;
+        for(product of filteredData){
+            if(product.id == productID){
+                productData = product;
+                break;
+            }
+        }
+        console.log(productData);
+        let images = document.querySelectorAll("#productImageBox img");
+        for(image of images){
+            image.setAttribute("src", "images/products/"+ productData["category"] +".png");
+        }
         
+        document.querySelector("#productInfoBox h1").textContent = productData.name;
+
+        let sizeBox = document.querySelector("#productSizeAvailable");
+        sizeBox.innerHTML = "";
+        for(size of productData.sizes){
+            let tempDiv = document.createElement("div");
+            tempDiv.textContent = size;
+            tempDiv.classList.add("singleProductSizeBox");
+            sizeBox.appendChild(tempDiv);
+        }
+
+        let colorBox = document.querySelector("#colorsContainer");
+        colorBox.innerHTML = "";
+        for(colors of productData.color){
+            let colorDisplay = document.createElement("div");
+            colorDisplay.setAttribute("class", "colorBox");
+            colorDisplay.style.backgroundColor = colors.hex;
+            colorBox.appendChild(colorDisplay);
+        }        
+
+        document.querySelector("#costContainer").textContent = "$"+ productData.price;
+
+        togglePageView("singleProductView", activePage);
     }
 
     /**
@@ -280,7 +317,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
             filteredData = filteredData.filter(i => i.name.toLowerCase().startsWith(filterList.name.toLowerCase()));
         }
         //console.log(filteredData);
-        if(filterList.gender != "N/A"){
+        if(filterList.gender != "NA"){
             filteredData = filteredData.filter(i => i.gender == filterList.gender);
         }
         //console.log(filteredData);
@@ -392,7 +429,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
         togglePageView("browseView", activePage);
         activePage = "browseView";
         let filteredData = getFilteredData();
-        
+        document.querySelector("#resultNum").textContent = "The search result is: " + filteredData.length;
         browseContent.innerHTML = "";
         //console.log(filteredData);
         //console.log(filterList);
@@ -400,24 +437,23 @@ document.addEventListener("DOMContentLoaded", (e)=>{
             for(product of filteredData){
                 let productElementClone = productTemplate.content.cloneNode(true);
                 let productElement = productElementClone.querySelector(".itemBox");
-                
                 productElement.setAttribute("value", product.id);
-                productElement.querySelector("click", (e)=>{
-                    loadSingleProductView(e.target.value);
+                productElement.addEventListener("click", (e)=>{
+                    /* i don't even want to try to explain the headache this caused*/
+                    console.log(e.target.attributes.value.value);
+                    loadSingleProductView(e.target.attributes.value.value);
                 });
 
                 let img = productElement.querySelector("img");
                 img.setAttribute("src","images/products/"+product.category+".png");
                 img.setAttribute("alt", product.name + " image");
                 img.setAttribute("title", product.name);
+                img.setAttribute("value", product.id)
 
                 let sizeBox = productElement.querySelector(".itemSizeAvailableBox");
                 productElement.querySelector(".itemTitle").textContent = product.name;
                 productElement.querySelector(".itemCost").textContent = "$"+product.price;
 
-                productElement.addEventListener("click", (e)=>{
-                    loadSingleProductView(e.target.value);
-                });
 
                 browseContent.appendChild(productElement);
             }
@@ -435,8 +471,8 @@ document.addEventListener("DOMContentLoaded", (e)=>{
     function clearFilterList(){
         filterList = {
             "name":"N/A",
-            "gender":"N/A",
-            "lowPrice":0,
+            "gender":"NA",
+            "lowPrice":"N/A",
             "highPrice":"N/A",
             "category":"N/A",
             "sizeXS":"N/A",

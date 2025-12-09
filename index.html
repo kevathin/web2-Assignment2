@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styling/homePage.css">
     <link rel="stylesheet" href="styling/browseView.css">
     <link rel="stylesheet" href="styling/main.css">
+    <link rel="stylesheet" href="styling/singleProductView.css">
 </head>
 <body>
     
@@ -79,8 +80,8 @@
 
                         <h2>Gender</h2>
                         <div id="genderOptionContainer">
-                            <label for="N/AGenderInput">No Preference</label>
-                            <input type="radio" value="N/A" name="selGender" id="N/AGenderInput" checked>
+                            <label for="NAGenderInput">No Preference</label>
+                            <input type="radio" value="NA" name="selGender" id="NAGenderInput" checked>
                             <label for="mensGenderInput">Male</label>
                             <input type="radio" value="mens" name="selGender" id="mensGenderInput">
                             <label for="womensGenderInput">Female</label>
@@ -156,15 +157,106 @@
         </section>
 
         <section id="singleProductView">
+            <div id="productViewBox">
+                <div id="productImageBox">
+                    <div id="superImageSingle">
+                        <img>
+                    </div>
+                    <img>
+                    <img>
+                </div>
+                <div id="productInfoBox">
+                    <h1></h1>
 
+                    <h2>Cost:</h2>
+                    <div id="costContainer"></div>
+
+                    <h2>Colors Available</h2>
+                    <div id="colorsContainer"></div>
+                    
+                    <h2>Sizes Available</h2>
+                    <div id="productSizeAvailable"></div>
+
+                    <h2>Other Details</h2>
+                    <div id="otherProductDetails">
+                    </div>
+
+                    <div id="addToCartBox">
+                        <label for="addAmountToCart">Select Amount</label>
+                        <input type="text" value="1" id="addAmountToCart">
+                        <button id="addToCartButton">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div id="recomendationsBox">
+
+            </div>
         </section>
 
         <section id="shoppingCartView">
+            <div id="listItemsBox">
+                <div id="checkoutHeaders">
+                    <p>Items</p>
+                    <p>Color</p>
+                    <p>Size</p>
+                    <p>Price</p>
+                    <p>Quantity</p>
+                    <p>Subtotal</p>
+                </div>
+                
+                <div id="checkoutItemBoxes">
 
+                </div>
+            </div>
+            <div id="shippingInfoBox">
+                <label for="shippingCountry">Country:</label>
+                <input type="text" id="shippingCountry" placeholder="Canada">
+                <label for="shippingType">Shipping Type:</label>
+                <input type="text" id="shippingType" placeholder="Regular">
+            </div>
+            <div id="summaryBox">
+                <h2>Summary</h2>
+                <div>
+                    <p>Merchandise: </p>
+                    <p id="merchBaseCost"></p>
+                </div>
+                <div>
+                    <p>Shipping: </p>
+                    <p></p>
+                </div>
+                <div>
+                    <p>Tax: </p>
+                    <p></p>
+                </div>
+                <div>
+                    <p>Total</p>
+                    <p></p>
+                </div>
+                <button id="checkoutButton">Checkout</button>
+            </div>
         </section>
 
         <section id="aboutUsView">
-
+            <h2>Assignment Information</h2>
+            <p>
+                the assignment was for web 2 assignment 2 where we had to make a website that contained only 1 html page. I kevin bertasius worked on this project by myself and I struggled lol.
+            </p>
+            <h2>All of my image sources</h2>
+            <ul id="imagesAndSources">
+                <li>manSuper = https://pixabay.com/photos/man-fashion-model-pose-portrait-9182458/</li>
+                <li>womenSuper = https://pixabay.com/photos/woman-model-portrait-pose-style-6496881/</li>
+                <li>Accessories = https://pixabay.com/photos/wrist-watch-clock-necktie-2159351/</li>
+                <li>Bottoms = https://pixabay.com/photos/trousers-clothing-mens-pants-2685231/</li>
+                <li>Dresses = https://pixabay.com/photos/clothes-ibiza-boutique-femininity-4423661/</li>
+                <li>Intimates = https://pixabay.com/illustrations/cute-girl-woman-portrait-fashion-8822623/</li>
+                <li>Jumpsuits = https://pixabay.com/illustrations/design-painter-holding-3063820/</li>
+                <li>Loungewear = https://pixabay.com/photos/woman-paraguay-portrait-cafe-7203799/</li>
+                <li>Outerwear = https://pixabay.com/vectors/clothing-coat-fashion-girl-wear-1298840/</li>
+                <li>Shoes = https://pixabay.com/vectors/tennis-shoes-footwear-fashion-nike-7968714/</li>
+                <li>Sweaters = https://pixabay.com/vectors/sweater-jumper-pullover-jersey-150533/</li>
+                <li>Swimwear = https://pixabay.com/illustrations/black-bodysuit-swimsuit-swimwear-7328640/</li>
+                <li>Tops = https://pixabay.com/illustrations/t-shirt-shirt-clothes-red-mockup-7973394/</li>
+            </ul>
         </section>
         
     </section>
@@ -177,17 +269,30 @@
 
 </body>
 
-    <template id="itemBoxTemplate">
+<template id="itemBoxTemplate">
 
-        <div class="itemBox">
-            <img src="(itemImageLink)" alt="(item title) image" title="(item title)" class="productImageMini">
-            <div class="itemTextBox">
-                <div class="itemSizeAvailableBox"></div>
-                <h2 class="itemTitle"></h2>
-                <h3 class="itemCost"></h3>
-            </div>
+    <div class="itemBox">
+        <img src="(itemImageLink)" alt="(item title) image" title="(item title)" class="productImageMini">
+        <div class="itemTextBox">
+            <div class="itemSizeAvailableBox"></div>
+            <h2 class="itemTitle"></h2>
+            <h3 class="itemCost"></h3>
         </div>
+    </div>
         
-    </template>
+</template>
+
+<template id="shoppingCartMiniItems">
+    <div class="checkoutItem">
+        <img>
+        <h2></h2>
+        <p class="checkoutTitle"></p>
+        <p class="checkoutSize"></p>
+        <p class="checkoutPrice"></p>
+        <p class="checkoutQuantity"></p>
+        <p class="checkoutSubtotal"></p>
+    </div>
+    
+</template>
 
 </html>
